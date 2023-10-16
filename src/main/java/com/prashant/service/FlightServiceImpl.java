@@ -16,6 +16,9 @@ public class FlightServiceImpl implements IFlightService {
 	
 	@Autowired
 	private IFlightDao dao;
+	
+	@Autowired
+	private ICityService cityService;
 
 	@Override
 	public List<Flight> getAllFlights() {
@@ -99,6 +102,16 @@ public class FlightServiceImpl implements IFlightService {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public List<Flight> findAllFlightsBetweenTwoCities(String source, String destination) {
+		Integer sourceCityId = cityService.findCityByCityName(source).getId();
+		Integer destinationCityId = cityService.findCityByCityName(destination).getId();
+		
+		List<Flight> flights = dao.findByArrivalAirportIdAndDepartureAirportId(sourceCityId.toString()
+				, destinationCityId.toString());
+		return flights;
 	}
 
 }

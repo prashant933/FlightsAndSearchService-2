@@ -80,4 +80,12 @@ public class CityServiceImpl implements ICityService {
 		}
 	}
 
+	@Override
+	public City findCityByCityName(String cityName) {
+		List<City> cities = getAllCities();
+		 Optional<City> output = cities.stream().filter(city -> city.getName().equals(cityName)).findFirst();
+		 if(output.isEmpty())
+			 throw new NotFoundException("City with name: "+cityName + " does not exist");
+		 return output.get();
+	}
 }

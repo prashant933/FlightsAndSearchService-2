@@ -11,4 +11,5 @@ public interface ICityService {
 	ResponseDetails addCity(City city) throws Exception;
 	ResponseDetails updateCityById(Integer id, City city);
 	ResponseDetails deleteCityById(Integer id);
+	City findCityByCityName(String cityName);
 }

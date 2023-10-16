@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.prashant.model.Flight;
@@ -53,6 +54,11 @@ public class FlightControllerImpl implements IFlightController {
 		return new ResponseEntity<ResponseDetails>(response, HttpStatus.OK);
 	}
 
-	
-
+	@GetMapping("/findFlights")
+	public ResponseEntity<List<Flight>> findAllFlightBetweenTwoCities(
+			@RequestParam(name = "from") String source,
+			@RequestParam(name = "to") String destination) {
+		List<Flight> flights = service.findAllFlightsBetweenTwoCities(source, destination);
+		return new ResponseEntity<List<Flight>>(flights, HttpStatus.OK);
+	}
 }

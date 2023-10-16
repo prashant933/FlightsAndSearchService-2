@@ -13,4 +13,5 @@ public interface IFlightController {
 	ResponseEntity<ResponseDetails> addFlight(Flight flight) throws Exception;
 	ResponseEntity<ResponseDetails> updateFlightById(Integer id, Flight flight);
 	ResponseEntity<ResponseDetails> deleteFlightById(Integer id);
+	ResponseEntity<List<Flight>> findAllFlightBetweenTwoCities(String source, String destination);
 }
