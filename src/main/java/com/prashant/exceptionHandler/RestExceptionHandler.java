@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.prashant.exception.NotFoundException;
+import com.prashant.exception.SeatsNotAvailableException;
 import com.prashant.response.ResponseDetails;
 
 @RestControllerAdvice
@@ -18,6 +19,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 		response.setMessage(exception.getMessage());
 		response.setSuccess(false);
 		return new ResponseEntity<ResponseDetails>(response, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(SeatsNotAvailableException.class)
+	public ResponseEntity<ResponseDetails> handleSeatsNotAvailableException(SeatsNotAvailableException e) {
+		ResponseDetails response = new ResponseDetails();
+		response.setMessage(e.getMessage());
+		response.setSuccess(false);
+		return new ResponseEntity<ResponseDetails>(response, HttpStatus.BAD_REQUEST);
 	}
 	
 	@ExceptionHandler(Exception.class)

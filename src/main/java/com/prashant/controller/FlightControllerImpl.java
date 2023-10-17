@@ -61,4 +61,10 @@ public class FlightControllerImpl implements IFlightController {
 		List<Flight> flights = service.findAllFlightsBetweenTwoCities(source, destination);
 		return new ResponseEntity<List<Flight>>(flights, HttpStatus.OK);
 	}
+
+	@PatchMapping("/updateSeats/{id}")
+	public ResponseEntity<ResponseDetails> updateSeatsForFlight(@PathVariable Integer id,
+			@RequestParam Integer decrement) {
+		return new ResponseEntity<ResponseDetails>(service.updateSeatsForFlight(id, decrement), HttpStatus.OK);
+	}
 }

@@ -12,4 +12,5 @@ public interface IFlightService {
 	ResponseDetails updateFlightById(Integer id, Flight flight);
 	ResponseDetails deleteFlightById(Integer id);
 	List<Flight> findAllFlightsBetweenTwoCities(String source, String destination);
+	ResponseDetails updateSeatsForFlight(Integer id, Integer decrement);
 }

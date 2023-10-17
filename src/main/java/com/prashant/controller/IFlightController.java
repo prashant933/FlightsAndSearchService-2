@@ -14,4 +14,5 @@ public interface IFlightController {
 	ResponseEntity<ResponseDetails> updateFlightById(Integer id, Flight flight);
 	ResponseEntity<ResponseDetails> deleteFlightById(Integer id);
 	ResponseEntity<List<Flight>> findAllFlightBetweenTwoCities(String source, String destination);
+	ResponseEntity<ResponseDetails> updateSeatsForFlight(Integer id, Integer decrement);
 }

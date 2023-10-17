@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.prashant.dao.IFlightDao;
 import com.prashant.exception.NotFoundException;
+import com.prashant.exception.SeatsNotAvailableException;
 import com.prashant.model.Flight;
 import com.prashant.response.ResponseDetails;
 
@@ -112,6 +113,18 @@ public class FlightServiceImpl implements IFlightService {
 		List<Flight> flights = dao.findByArrivalAirportIdAndDepartureAirportId(sourceCityId.toString()
 				, destinationCityId.toString());
 		return flights;
+	}
+
+	@Override
+	public ResponseDetails updateSeatsForFlight(Integer id, Integer decrement) {
+		Flight flight = getFlightById(id);
+		if(flight.getTotalSeats() < decrement)
+			throw new SeatsNotAvailableException("Enough empty seats are not available");
+		dao.updateSeatsInFlight(id, decrement);
+		ResponseDetails response = new ResponseDetails();
+		response.setMessage(String.format("Successfully decremented %d number of seats for flight with ID: %d", decrement, id));
+		response.setSuccess(true);
+		return response;
 	}
 
 }
